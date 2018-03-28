@@ -3,8 +3,11 @@ var vowels = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"];
 var pigLatin = [];
 function translate(phrase) {
   for (var i = 0; i < vowels.length; i++) {
-    if (phrase[0] === vowels[i]) {
+    if (phrase[0] === vowels[i] && phrase.length === 1) { //adds "ay" words beginning with a vowel
       pigLatin.push(phrase[0], "ay");
+      return pigLatin.join("");
+    } else if (phrase[0] === vowels[i]) {
+      pigLatin.push(phrase.join(""), "way");
       return pigLatin.join("");
     }
   }
