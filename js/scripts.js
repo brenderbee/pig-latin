@@ -1,5 +1,5 @@
 // Business Logic
-var vowels = ["a", "e", "i", "o", "u"];
+var vowels = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"];
 var pigLatin = [];
 function translate(phrase) {
   for (var i = 0; i < vowels.length; i++) {
@@ -19,8 +19,6 @@ $(document).ready(function() {
     var inputLetters = inputSentence.split("");
     var output = translate(inputLetters);
 
-    console.log(vowels);
     console.log(output);
-    console.log(pigLatin);
   });
 });
