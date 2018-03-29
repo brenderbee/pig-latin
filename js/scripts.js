@@ -38,11 +38,13 @@ for (var j = 0; j < phrase.length; j++) {
 $(document).ready(function() {
   $("#translator").submit(function(event) {
     event.preventDefault();
+    $("ul").empty();
+
     var inputSentence = $("#sentence").val();
     var inputLetters = inputSentence.split("");
     var output = translate(inputLetters);
 
-    $("#output").text(output)
+    $("#output").prepend("<li>" + output + "</li>")
     console.log(output);
   });
 });
