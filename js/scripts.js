@@ -3,7 +3,7 @@
 function translate(words) {
   var pigLatin = [];
   var consonants = [];
-debugger;
+
   words.forEach(function(word) {
     var letters = [];
     letters = word.split("");
