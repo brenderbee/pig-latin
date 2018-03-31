@@ -1,37 +1,35 @@
 // Business Logic
-var vowels = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U", "y", "Y"];
-var pigLatin = [];
-var consonants = [];
+// Begin translate function
+function translate(words) {
+  var pigLatin = [];
+  var consonants = [];
 
-function translate(phrase) {
-// words beginning in vowels or qu
-  for (var i = 0; i < vowels.length; i++) {
-    if (phrase[0] === vowels[i] && phrase.length === 1) {
-      pigLatin.push(phrase[0], "ay");
-      return pigLatin.join("");
-    } else if (phrase[0] === vowels[i]) {
-      pigLatin.push(phrase.join(""), "way");
-      return pigLatin.join("");
-    } else if (phrase[0] === "q" && phrase[1] === "u") {
-        var qend = phrase.slice(2).join("")
-        pigLatin.push(qend, phrase[0], phrase[1], "ay")
+  words.forEach(function(word) {
+    var letters = [];
+    letters = word.split("");
+
+// Words beginning with vowels or qu
+    if (letters[0].match(/[aeiouyAEIOUY]/) && word.length === 1) {
+      pigLatin.push(letters[0], "ay", " ");
+    } else if (letters[0].match(/[aeiouyAEIOUY]/)) {
+      pigLatin.push(word, "way", " ");
+    } else if (letters[0].match(/[qQ]/) && letters[1].match(/[uU]/)) {
+      var qend = letters.slice(2).join("");
+      pigLatin.push(qend, letters[0], letters[1], "ay", " ");
+    }
+// Words beggining with consonants
+    for (var j = 0; j < letters.length; j++) {
+      if (letters[j].match(/[^aeiouyAEIOUY]/)) {
+        consonants.push(letters[j]);
+      } else {
+        var splicedPhrase = letters.splice(j);
+        pigLatin.push(splicedPhrase.join(""), consonants.join(""), "ay", " ");
         return pigLatin.join("");
-    } else {
-      break;
+        break;
+      }
     }
-  }
-
-// consecutive consonants
-for (var j = 0; j < phrase.length; j++) {
-    if (phrase[j].match(/[b-df-hj-np-tv-z]/)) {
-      consonants.push(phrase[j]);
-    } else {
-      var splicedPhrase = phrase.splice(j);
-      pigLatin.push(splicedPhrase.join(""), consonants.join(""), "ay");
-      return pigLatin.join("");
-      break;
-    }
-  }
+  });
+  return pigLatin.join("");
 } //end of function translate()
 
 // User-Interface Logic
@@ -41,10 +39,9 @@ $(document).ready(function() {
     $("ul").empty();
 
     var inputSentence = $("#sentence").val();
-    var inputLetters = inputSentence.split("");
-    var output = translate(inputLetters);
+    var inputWords = inputSentence.split(" ");
+    var output = translate(inputWords);
 
-    $("#output").prepend("<li>" + output + "</li>")
-    console.log(output);
+    $("#output").prepend("<li>" + output + "</li>");
   });
 });
