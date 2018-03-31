@@ -14,8 +14,7 @@ debugger;
     } else if (letters[0].match(/[aeiouyAEIOUY]/)) {
       pigLatin.push(word, "way", " ");
     } else if (letters[0].match(/[qQ]/) && letters[1].match(/[uU]/)) {
-      var qend = letters.slice(2).join("");
-      pigLatin.push(qend, letters[0], letters[1], "ay", " ");
+      pigLatin.push(letters.slice(2).join(""), letters[0], letters[1], "ay", " ");
     } else {
       // Words beginning with consonants
       for (var j = 0; j < letters.length; j++) {
